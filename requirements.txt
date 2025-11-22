@@ -1,0 +1,71 @@
+# ============================================================================
+# CARBON FOOTPRINT MONITOR - PYTHON DEPENDENCIES
+# ============================================================================
+# Install with: pip install -r requirements.txt
+# ============================================================================
+
+# ============================================================================
+# WEB FRAMEWORK & SERVER
+# ============================================================================
+
+Flask==2.3.0
+# Web framework for building REST API and serving templates
+
+Flask-CORS==4.0.0
+# Handle Cross-Origin Resource Sharing for API requests
+
+Werkzeug==2.3.0
+# WSGI utilities and HTTP utilities library
+
+# ============================================================================
+# DATA PROCESSING & ANALYSIS
+# ============================================================================
+
+numpy==1.24.0
+# Numerical computing library - used for ML calculations
+
+pandas==2.0.0
+# Data analysis and manipulation library - for data processing
+
+# ============================================================================
+# MACHINE LEARNING
+# ============================================================================
+
+scikit-learn==1.2.0
+# Machine Learning library - for Gradient Boosting predictions
+
+joblib==1.2.0
+# Serialization library - for saving/loading ML models
+
+# ============================================================================
+# CONFIGURATION & UTILITIES
+# ============================================================================
+
+python-dotenv==1.0.0
+# Load environment variables from .env file
+
+# ============================================================================
+# OPTIONAL PRODUCTION DEPENDENCIES (Uncomment if needed)
+# ============================================================================
+
+# gunicorn==20.1.0
+# Production WSGI HTTP Server - use instead of Flask development server
+
+# psycopg2-binary==2.9.0
+# PostgreSQL database adapter - if using PostgreSQL database
+
+# redis==4.5.0
+# Redis client - if using Redis for caching
+
+# SQLAlchemy==2.0.0
+# SQL database toolkit - for future database integration
+
+# python-dateutil==2.8.0
+# Useful extensions to datetime module
+
+# ============================================================================
+# VERSION INFO
+# ============================================================================
+# Last Updated: 2024-11-22
+# Python Version: 3.8+
+# ============================================================================

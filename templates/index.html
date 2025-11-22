@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carbon Footprint Monitor</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div id="app">
+        <!-- Header -->
+        <header class="header">
+            <div class="container">
+                <div class="header-content">
+                    <div class="logo">
+                        <i class="fas fa-leaf"></i>
+                        <h1>Carbon Footprint Monitor</h1>
+                    </div>
+                    <p class="tagline">Track emissions, predict trends, and discover eco-friendly alternatives</p>
+                </div>
+            </div>
+        </header>
+
+        <!-- Navigation -->
+        <nav class="navbar">
+            <div class="container">
+                <ul class="nav-menu">
+                    <li><a href="#dashboard" class="nav-link active" data-tab="dashboard">
+                        <i class="fas fa-chart-line"></i> Dashboard
+                    </a></li>
+                    <li><a href="#log" class="nav-link" data-tab="log">
+                        <i class="fas fa-plus-circle"></i> Log Activity
+                    </a></li>
+                    <li><a href="#analytics" class="nav-link" data-tab="analytics">
+                        <i class="fas fa-bar-chart"></i> Analytics
+                    </a></li>
+                    <li><a href="#recommendations" class="nav-link" data-tab="recommendations">
+                        <i class="fas fa-lightbulb"></i> Recommendations
+                    </a></li>
+                </ul>
+            </div>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="container main-content">
+            <!-- Loading Spinner -->
+            <div id="loading" class="loading">
+                <div class="spinner"></div>
+                <p>Loading data...</p>
+            </div>
+
+            <!-- Dashboard Tab -->
+            <section id="dashboard" class="tab-content active">
+                <div class="summary-cards">
+                    <div class="card summary-card">
+                        <div class="card-icon">
+                            <i class="fas fa-cloud"></i>
+                        </div>
+                        <div class="card-content">
+                            <p class="card-label">Total Emissions</p>
+                            <p class="card-value" id="totalEmissions">0</p>
+                            <p class="card-unit">kg CO₂</p>
+                        </div>
+                    </div>
+
+                    <div class="card summary-card">
+                        <div class="card-icon">
+                            <i class="fas fa-calendar"></i>
+                        </div>
+                        <div class="card-content">
+                            <p class="card-label">Monthly Average</p>
+                            <p class="card-value" id="monthlyAverage">0</p>
+                            <p class="card-unit">kg CO₂/month</p>
+                        </div>
+                    </div>
+
+                    <div class="card summary-card">
+                        <div class="card-icon">
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <div class="card-content">
+                            <p class="card-label">Top Contributor</p>
+                            <p class="card-value" id="topContributor">N/A</p>
+                            <p class="card-unit">Activity Type</p>
+                        </div>
+                    </div>
+
+                    <div class="card summary-card">
+                        <div class="card-icon">
+                            <i class="fas fa-list"></i>
+                        </div>
+                        <div class="card-content">
+                            <p class="card-label">Total Records</p>
+                            <p class="card-value" id="totalRecords">0</p>
+                            <p class="card-unit">Activities Logged</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Charts Section -->
+                <div class="charts-section">
+                    <div class="card chart-card">
+                        <h3 class="chart-title">Emissions by Category</h3>
+                        <canvas id="categoryChart"></canvas>
+                    </div>
+
+                    <div class="card chart-card">
+                        <h3 class="chart-title">Emissions by Type</h3>
+                        <canvas id="typeChart"></canvas>
+                    </div>
+
+                    <div class="card chart-card full-width">
+                        <h3 class="chart-title">30-Day Prediction</h3>
+                        <canvas id="predictionChart"></canvas>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Log Activity Tab -->
+            <section id="log" class="tab-content">
+                <div class="log-container">
+                    <div class="card log-form-card">
+                        <h3 class="form-title">Log New Activity</h3>
+                        <form id="emissionForm" class="emission-form">
+                            <div class="form-group">
+                                <label for="activityType">Activity Type *</label>
+                                <select id="activityType" required>
+                                    <option value="">Select Activity Type</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="category">Category *</label>
+                                <select id="category" required>
+                                    <option value="transport">Transport</option>
+                                    <option value="energy">Energy</option>
+                                    <option value="food">Food</option>
+                                    <option value="waste">Waste</option>
+                                    <option value="water">Water</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="value">Value *</label>
+                                <input type="number" id="value" step="0.01" min="0" required placeholder="Enter amount">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="date">Date *</label>
+                                <input type="date" id="date" required>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="notes">Notes</label>
+                                <textarea id="notes" placeholder="Optional notes about this activity" rows="3"></textarea>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-plus"></i> Log Activity
+                            </button>
+                        </form>
+                    </div>
+
+                    <div class="card activities-card">
+                        <h3 class="form-title">Recent Activities</h3>
+                        <div id="activitiesList" class="activities-list">
+                            <p class="no-data">No activities logged yet</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Analytics Tab -->
+            <section id="analytics" class="tab-content">
+                <div class="analytics-container">
+                    <div class="card chart-card full-width">
+                        <h3 class="chart-title">Detailed Analytics</h3>
+                        <div class="analytics-filters">
+                            <button class="filter-btn active" data-period="all">All Time</button>
+                            <button class="filter-btn" data-period="week">Last Week</button>
+                            <button class="filter-btn" data-period="month">Last Month</button>
+                            <button class="filter-btn" data-period="year">Last Year</button>
+                        </div>
+                        <canvas id="analyticsChart"></canvas>
+                    </div>
+
+                    <div class="card statistics-card">
+                        <h3 class="chart-title">Statistics</h3>
+                        <div id="statisticsTable" class="statistics-table">
+                            <!-- Populated by JavaScript -->
+                        </div>
+                    </div>
+
+                    <div class="export-section">
+                        <button id="exportBtn" class="btn btn-secondary">
+                            <i class="fas fa-download"></i> Export Data as JSON
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Recommendations Tab -->
+            <section id="recommendations" class="tab-content">
+                <div class="recommendations-container">
+                    <div id="recommendationsList" class="recommendations-list">
+                        <!-- Populated by JavaScript -->
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="container">
+                <p>&copy; 2024 Carbon Footprint Monitor. All rights reserved.</p>
+                <p>Track your carbon footprint and make a difference for the planet.</p>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Chart.js Library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+    <!-- Main JavaScript -->
+    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+</body>
+</html>
